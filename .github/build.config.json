@@ -16,7 +16,7 @@
         "repolink": "https://github.com/TechForAutismDyslexia/medical-report-gen"
     },
     "adminportal": {
-        "subdomain": "games/adminportal",
+        "subdomain": "adminportal",
         "repolink": "https://github.com/TechForAutismDyslexia/frontend"
     },
     "memorygame": {
