@@ -1,4 +1,16 @@
 {
+    "root": {
+        "subdomain": "/",
+        "repolink": "https://github.com/TechForAutismDyslexia/joywithlearning"
+    },
+    "adminportal": {
+        "subdomain": "adminportal",
+        "repolink": "https://github.com/TechForAutismDyslexia/frontend"
+    },
+    "reportgen": {
+        "subdomain": "reportgen",
+        "repolink": "https://github.com/TechForAutismDyslexia/medical-report-gen"
+    },
     "joiningshapes": {
         "subdomain": "games/joiningshapes",
         "repolink": "https://github.com/brohithkr/joining_shapes_game"
@@ -10,14 +22,6 @@
     "dragandmatch": {
         "subdomain": "games/dragandmatch",
         "repolink": "https://github.com/TechForAutismDyslexia/DragAndMatch"
-    },
-    "reportgen": {
-        "subdomain": "reportgen",
-        "repolink": "https://github.com/TechForAutismDyslexia/medical-report-gen"
-    },
-    "adminportal": {
-        "subdomain": "adminportal",
-        "repolink": "https://github.com/TechForAutismDyslexia/frontend"
     },
     "memorygame": {
         "subdomain": "games/memorygame",
@@ -62,9 +66,5 @@
     "animalfarm": {
         "subdomain": "games/animalfarm",
         "repolink": "https://github.com/TechForAutismDyslexia/animal_farm"
-    },
-    "root": {
-        "subdomain": "/",
-        "repolink": "https://github.com/TechForAutismDyslexia/joywithlearning"
     }
 }
