@@ -29,7 +29,7 @@
     },
     "shadowmatching": {
         "subdomain": "games/shadowmatching",
-        "repolink": "https://github.com/TechForAutismDyslexia/MemoryGame"
+        "repolink": "https://github.com/TechForAutismDyslexia/shadowmatching"
     },
     "sentenceverification2": {
         "subdomain": "games/sentenceverification2",
