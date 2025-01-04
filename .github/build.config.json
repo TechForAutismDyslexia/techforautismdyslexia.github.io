@@ -3,8 +3,8 @@
         "subdomain": "/",
         "repolink": "https://github.com/TechForAutismDyslexia/joywithlearning"
     },
-    "adminportal": {
-        "subdomain": "adminportal",
+    "portal": {
+        "subdomain": "portal",
         "repolink": "https://github.com/TechForAutismDyslexia/frontend"
     },
     "reportgen": {
