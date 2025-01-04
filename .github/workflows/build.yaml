@@ -2,6 +2,7 @@ name: Build Site
 # run-name: ${{ github.actor }} is learning GitHub Actions
 env:
   CI: false
+  mytoken : ${{ secrets.PATOKEN }} 
 on: 
     workflow_dispatch:
       inputs:
