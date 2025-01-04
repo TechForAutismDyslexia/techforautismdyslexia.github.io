@@ -27,7 +27,8 @@ function buildRepo
     echo $repolink
     echo $repodir
     echo "$subdomain $repolink"
-    git clone "$repolink" "$repodir"
+    set authrepolink (string replace "https://" "https://$mytoken:@" $repolink)
+    git clone "$authrepolink" "$repodir"
     cd $repodir
     bun i
     bun run build
