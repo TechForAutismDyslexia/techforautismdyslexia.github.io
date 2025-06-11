@@ -8,6 +8,11 @@ function buildRepo
     set repolink (jq -r ".[\"$name\"].repolink" $filename)
     set repodir ./buildfiles/$name
 
+    if test $name = "root"
+        set branch "working"
+    else
+        set branch "main"
+    end
 
     if test ! -e site
         mkdir site
@@ -25,7 +30,7 @@ function buildRepo
     echo $repodir
     echo "$subdomain $repolink"
     set authrepolink (string replace "https://" "https://$PA_TOKEN:@" $repolink)
-    git clone "$authrepolink" "$repodir"
+    git clone -b $branch "$authrepolink" "$repodir"
     cd $repodir
     bun i
     bun run build
