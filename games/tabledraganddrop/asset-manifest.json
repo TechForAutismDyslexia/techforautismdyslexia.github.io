@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/games/tabledraganddrop/static/css/main.bfad3f52.css",
+    "main.js": "/games/tabledraganddrop/static/js/main.8e80d5f4.js",
+    "static/js/453.a6e017e0.chunk.js": "/games/tabledraganddrop/static/js/453.a6e017e0.chunk.js",
+    "static/media/instructionaudio.wav": "/games/tabledraganddrop/static/media/instructionaudio.bb72c9b3309def1ff9eb.wav",
+    "static/media/wrong.mp3": "/games/tabledraganddrop/static/media/wrong.cdfb935dd58cc1498d4c.mp3",
+    "static/media/correct.mp3": "/games/tabledraganddrop/static/media/correct.37d039d279e5b1100059.mp3",
+    "static/media/tryagain.mp3": "/games/tabledraganddrop/static/media/tryagain.a72340246fbe8afa2449.mp3",
+    "index.html": "/games/tabledraganddrop/index.html",
+    "main.bfad3f52.css.map": "/games/tabledraganddrop/static/css/main.bfad3f52.css.map",
+    "main.8e80d5f4.js.map": "/games/tabledraganddrop/static/js/main.8e80d5f4.js.map",
+    "453.a6e017e0.chunk.js.map": "/games/tabledraganddrop/static/js/453.a6e017e0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bfad3f52.css",
+    "static/js/main.8e80d5f4.js"
+  ]
+}
