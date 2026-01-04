@@ -7,12 +7,7 @@ function buildRepo
     set subdomain (jq -r ".[\"$name\"].subdomain" $filename)
     set repolink (jq -r ".[\"$name\"].repolink" $filename)
     set repodir ./buildfiles/$name
-
-    if test $name = "root"
-        set branch "working"
-    else
-        set branch "main"
-    end
+    set branch "testing"
 
     if test ! -e site
         mkdir site
