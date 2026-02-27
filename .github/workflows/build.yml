@@ -16,6 +16,7 @@ permissions:
 jobs:
   build-repo:
     runs-on: ubuntu-latest
+    environment : env_test
     steps:
       - name: Generate GitHub App Token
         id: app-token
@@ -37,10 +38,17 @@ jobs:
           sudo apt-get install -y fish
       - name: Set Execute Permission for build.fish
         run: chmod +x .github/build.fish
+      - name: Debug API URL
+        run: echo "API URL = $VITE_API_URL"
+        env:
+            VITE_API_URL: ${{ vars.VITE_API_URL }}
+
       - name: Build the Folders
         run: |
           CI=false
           cd .github && fish ./build.fish ${{ inputs.reponame }}
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
       - name: Push to Repository
         run: |
           git config --global user.name "tad-org-bot[bot]"

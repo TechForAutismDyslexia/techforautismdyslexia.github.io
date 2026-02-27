@@ -1,7 +1,7 @@
 {
     "root": {
         "subdomain": "/",
-        "repolink": "https://github.com/TechForAutismDyslexia/totalsolutions"
+        "repolink": "https://github.com/TechForAutismDyslexia/TotalSolutionsFrontend"
     },
     "joiningshapes": {
         "subdomain": "games/joiningshapes",
