@@ -46,6 +46,7 @@ jobs:
       - name: Build the Folders
         run: |
           CI=false
+          export ACCESS_TOKEN=${{ steps.app-token.outputs.token }}
           cd .github && fish ./build.fish ${{ inputs.reponame }}
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
