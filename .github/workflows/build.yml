@@ -24,6 +24,7 @@ jobs:
         with:
           app-id: ${{ vars.TAD_ORG_BOT_ID }}
           private-key: ${{ secrets.TAD_ORG_BOT_PEM }}
+          owner: TechForAutismDyslexia
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
