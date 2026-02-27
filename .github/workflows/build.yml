@@ -1,7 +1,6 @@
 name: Build TotalSolutions
 env:
   CI: false
-  PA_TOKEN :  ${{ secrets.PATOKEN }}
 on: 
   workflow_dispatch:
     inputs:
@@ -10,15 +9,24 @@ on:
         required: false
         default: 'root'
         type: string
+
+permissions:
+  contents: write
           
 jobs:
   build-repo:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.TAD_ORG_BOT_ID }}
+          private-key: ${{ secrets.TAD_ORG_BOT_PEM }}
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.PATOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
       - name: Install Bun
         run: |
           curl -fsSL https://bun.sh/install | bash
@@ -35,11 +43,15 @@ jobs:
           cd .github && fish ./build.fish ${{ inputs.reponame }}
       - name: Push to Repository
         run: |
-          git config --global user.name "krishnamanojpvr"
-          git config --global user.email "119659348+krishnamanojpvr@users.noreply.github.com"
+          git config --global user.name "tad-org-bot[bot]"
+          git config --global user.email "tad-org-bot[bot]@users.noreply.github.com"
           cp -r .github/site/* .
-          rm -r .github/site
-          git status
+          rm -rf .github/site
           git add .
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
           git commit -m "Portal Build (automated)"
           git push
