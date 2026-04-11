@@ -28,6 +28,14 @@ jobs:
     environment: env_test
 
     steps:
+      - name: Debug secret presence
+        run: |
+            if [ -z "${{ secrets.TAD_ORG_BOT_ID }}" ]; then
+              echo "APP ID is EMPTY ❌"
+              exit 1
+            else
+              echo "APP ID exists ✅"
+            fi
       - name: Generate GitHub App Token
         id: app-token
         uses: actions/create-github-app-token@v1
