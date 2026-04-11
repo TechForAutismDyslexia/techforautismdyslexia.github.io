@@ -10,28 +10,23 @@ function buildRepo
     set repodir ./buildfiles/$name
     set branch "testing"
 
-    # Create site folder
-    if test ! -e site
-        mkdir site
-    else
-        rm -rf ./site/$subdomain
-    end
+    # Temp output folder
+    set outputdir ./temp_build
+
+    # Clean temp
+    rm -rf $outputdir
+    mkdir -p $outputdir
 
     # Clean buildfiles
-    if test ! -e buildfiles
-        mkdir buildfiles
-    else
-        rm -rf ./buildfiles/*
-    end
+    rm -rf buildfiles
+    mkdir buildfiles
 
     echo "Building: $name"
     echo "Repo: $repolink"
-    echo "Subdomain: $subdomain"
 
-    # Authenticated repo URL
+    # Auth repo
     set authrepolink (string replace "https://github.com/" "https://x-access-token:$ACCESS_TOKEN@github.com/" $repolink)
 
-    # Clone repo
     git clone -b $branch "$authrepolink" "$repodir"
 
     cd $repodir
@@ -39,33 +34,27 @@ function buildRepo
     bun run build
     cd -
 
-    # Create output folder
-    mkdir -p "./site/$subdomain"
-
-    # Copy build output safely
-    if test -e $repodir/build
-        echo "Using build/ folder"
-        cp -r $repodir/build/* ./site/$subdomain 2>/dev/null
-    else if test -e $repodir/dist
-        echo "Using dist/ folder"
-        cp -r $repodir/dist/* ./site/$subdomain 2>/dev/null
+    # Detect output
+    if test -d $repodir/build
+        echo "Using build/"
+        cp -r $repodir/build/* $outputdir 2>/dev/null
+    else if test -d $repodir/dist
+        echo "Using dist/"
+        cp -r $repodir/dist/* $outputdir 2>/dev/null
     else
-        echo "❌ No build output found (build/ or dist/)"
+        echo "❌ No build output found"
+        exit 1
     end
 
     # Cleanup
     rm -rf buildfiles
 end
 
-# Entry logic
 if test "$argv[1]" = "all"
-
     set keys (jq -r 'keys_unsorted | .[]' $filename)
-
     for i in $keys
         buildRepo "$i"
     end
-
 else
     buildRepo "$argv[1]"
 end
