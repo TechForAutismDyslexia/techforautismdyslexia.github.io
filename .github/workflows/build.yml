@@ -41,6 +41,7 @@ jobs:
 
       - name: Build
         run: |
+          export ACCESS_TOKEN=${{ secrets.PATOKEN }}
           cd .github && fish ./build.fish ${{ inputs.reponame }}
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
@@ -49,16 +50,16 @@ jobs:
         run: |
           git config --global user.name "tad-org-bot"
           git config --global user.email "bot@users.noreply.github.com"
-
-          cp -r .github/site/* .
-          rm -rf .github/site
-
+      
+          cp -r site/* . 2>/dev/null || echo "No build output"
+          rm -rf site
+      
           git add .
-
+      
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
-
+      
           git commit -m "Portal Build (automated)"
           git push
