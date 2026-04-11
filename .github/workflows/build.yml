@@ -1,7 +1,16 @@
-name: Build TotalSolutions
+name: Build TotalSolutionsFrontend Testing Branch
+
 env:
   CI: false
-on: 
+
+on:
+  workflow_call:
+    inputs:
+      reponame:
+        required: false
+        default: 'root'
+        type: string
+
   workflow_dispatch:
     inputs:
       reponame:
@@ -12,11 +21,12 @@ on:
 
 permissions:
   contents: write
-          
+
 jobs:
   build-repo:
     runs-on: ubuntu-latest
-    environment : env_test
+    environment: env_test
+
     steps:
       - name: Generate GitHub App Token
         id: app-token
@@ -25,43 +35,46 @@ jobs:
           app-id: ${{ vars.TAD_ORG_BOT_ID }}
           private-key: ${{ secrets.TAD_ORG_BOT_PEM }}
           owner: TechForAutismDyslexia
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ steps.app-token.outputs.token }}
+
       - name: Install Bun
         run: |
           curl -fsSL https://bun.sh/install | bash
           echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
       - name: Install Fish
         run: |
           sudo apt-get update
           sudo apt-get install -y fish
-      - name: Set Execute Permission for build.fish
-        run: chmod +x .github/build.fish
-      - name: Debug API URL
-        run: echo "API URL = $VITE_API_URL"
-        env:
-            VITE_API_URL: ${{ vars.VITE_API_URL }}
 
-      - name: Build the Folders
+      - name: Set Execute Permission
+        run: chmod +x .github/build.fish
+
+      - name: Build
         run: |
-          CI=false
           export ACCESS_TOKEN=${{ steps.app-token.outputs.token }}
           cd .github && fish ./build.fish ${{ inputs.reponame }}
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
-      - name: Push to Repository
+
+      - name: Commit & Push
         run: |
           git config --global user.name "tad-org-bot[bot]"
           git config --global user.email "tad-org-bot[bot]@users.noreply.github.com"
+
           cp -r .github/site/* .
           rm -rf .github/site
+
           git add .
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
+
           git commit -m "Portal Build (automated)"
           git push
